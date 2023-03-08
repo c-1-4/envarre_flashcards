@@ -17,7 +17,7 @@ def read_block(f):
             buf = buf + c;
     return buf
 
-sections = ["dfn", "thm", "nt"]
+sections = ["dfn", "thm", "nt", "ex"]
 indices = {}
 for s in sections:
     indices[s] = 0
