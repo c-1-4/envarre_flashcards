@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+.centered {
+	margin: auto;
+	width: 50%;
+}
+	    button {
+		height: 5em;
+	    }
+	    html, body {
+
+	    height: 100%;
+	    }
+	    .buttons {
+		display: flex;
+		justify-content: space-around;
+	    }
+	    .viewport {
+		display:flex;
+		justify-content:center;
+		width: 100%;
+		height: 60%; 
+		overflow: hidden;
+		position: relative;
+	    }
+
+	    .clipped {
+		    width: 100%;
+		height: auto;
+		display: block;
+		position: absolute;
+	    }
+	    .content {
+		margin-top: 50px;
+		height: 100%;
+		width: 100%;
+	    }
+	</style>
+	<title>Local Image Viewer</title>
+	<script>
+		let n = 1;
+		let path = "/Users/c14/ioannis_flashcards/cards";
+		let isFront = true;
+		
+		function updateImage() {
+			let imageSrc = isFront ? `${path}/front_${n}.png` : `${path}/back_${n}.png`;
+			document.getElementById('image').src = imageSrc;
+		}
+		
+		function changePath() {
+			path = document.getElementById('path-input').value;
+			updateImage();
+		}
+		
+		function changeImage(direction) {
+			if (direction == 'prev') {
+				n = Math.max(1, n - 1);
+			} else {
+				n++;
+			}
+			isFront = true;
+			updateImage();
+		}
+		
+		function toggleImage() {
+			isFront = !isFront;
+			updateImage();
+		}
+	</script>
+</head>
+<body>
+	<div class="content">
+	<div class="centered">
+	<label for="path-input">Image Path:</label>
+	<input type="text" id="path-input" value="/Users/c14/ioannis_flashcards/cards">
+	<button onclick="changePath()">Update Path</button>
+	</div>
+	<br>
+	<div class="viewport">
+	<img class="clipped" id="image" src="/Users/c14/ioannis_flashcards/cards/front_1.png" alt="Local Image" width="500" height="500">
+	</div>
+	<br>
+	<div class="centered buttons">
+	<button onclick="changeImage('prev')">Previous</button>
+	<button onclick="toggleImage()">Toggle Front/Back</button>
+	<button onclick="changeImage('next')">Next</button>
+	
+	</div>
+	</div>
+</body>
+</html>
