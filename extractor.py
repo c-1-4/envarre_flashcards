@@ -17,7 +17,11 @@ def read_block(f):
             buf = buf + c;
     return buf
 
-sections = ["dfn", "ex", "thm"]
+sections = ["dfn", "ex", "thm", "nt"]
+indices = {}
+for s in sections:
+    indices[s] = 0
+    os.system("mkdir cards_"+s);
 texfile = open("main.tex", "r")
 os.system("rm -rf cards")
 os.system("mkdir cards")
@@ -35,6 +39,7 @@ while True:
             read_section = a
     
     if(read_section != ""):
+        indices[read_section] = indices[read_section] + 1
         print(read_section)
         frontside = read_block(texfile)
         backside = read_block(texfile)
@@ -61,7 +66,8 @@ while True:
         os.system("pdflatex -interaction=nonstopmode back_{}.tex".format(str(cardidx)));
         os.system("convert -density 300 front_{}.pdf -quality 90 front_{}.png".format(str(cardidx), str(cardidx)));
         os.system("convert -density 300 back_{}.pdf -quality 90 back_{}.png".format(str(cardidx),str(cardidx)));
-
+        os.system("cp front_{}.png cards_{}/front_{}.png".format(str(cardidx), read_section, indices[read_section]))
+        os.system("cp back_{}.png cards_{}/back_{}.png".format(str(cardidx), read_section, indices[read_section])) 
         chrbuf = ""
 os.system("mv front_*.png front_*.pdf cards")
 os.system("mv back_*.png back_*.pdf cards")
