@@ -13,6 +13,9 @@
 
 	    height: 100%;
 	    }
+	    button {
+		width: 10em;
+	    }
 	    .buttons {
 		display: flex;
 		justify-content: space-around;
@@ -21,7 +24,7 @@
 		display:flex;
 		justify-content:center;
 		width: 100%;
-		height: 70%; 
+		height: 65%; 
 		overflow: hidden;
 		position: relative;
 	    }
@@ -69,6 +72,12 @@
 			isFront = !isFront;
 			updateImage();
 		}
+
+		function randomizeIndex() {
+			isFront = true;
+			n = Math.floor(Math.random() * (parseInt(document.getElementById("rnd-input").value,10) + 1));
+			updateImage();
+		}
 	</script>
 </head>
 <body>
@@ -84,6 +93,13 @@
 	<img class="clipped" id="image" src="/Users/c14/ioannis_flashcards/cards/front_1.png" alt="Local Image" width="500" height="500">
 	</div>
 	<br>
+	<div class="centered buttons">
+	<label for="rnd-input" style="width: 7em; margin: auto 0">rnd upper bound</label>
+	<input type="number" id="rnd-input" style="width: 10em;" value="0">
+	<button onclick="randomizeIndex()">Randomize</button>
+	</button>
+	</div>
+	</br>
 	<div class="centered buttons">
 	<button onclick="changeImage('prev')">Previous</button>
 	<button onclick="toggleImage()">Toggle Front/Back</button>
